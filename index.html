@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hy">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="EXIF Տվյալներ" />
+    <meta property="og:locale" content="hy_HY" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Տեղեկություններ EXIF ֆայլերի մասին, ինչպես ստուգել, փոփոխել և ավելացնել նոր տվյալներ ձեր նկարների համար"
+    />
+    <meta
+      property="og:url"
+      content="https://rainbow-youtiao-8f6d98.netlify.app/"
+    />
+    <meta
+      property="og:image"
+      content="https://rainbow-youtiao-8f6d98.netlify.app/file.png"
+    />
+    <title>EXIF Տվյալներ</title>
+    <link rel="icon" href="exif.png" type="image/x-icon" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div class="block">
+        <h1>EXIF Տվյալներ</h1>
+        <h2>Վերբեռնեք նկար</h2>
+
+        <label class="buttonInput" for="fileInput" id="fileInputLabel"
+          >Ընտրեք նկար</label
+        >
+        <input type="file" id="fileInput" accept="image/jpeg" />
+
+        <img src="" id="imagePreview" />
+
+        <div id="exifData">Այստեղ կհայտնվի տվյալները...</div>
+      </div>
+
+      <div class="block block_second">
+        <h2>Ավելացնել տվյալներ</h2>
+        <input
+          type="text"
+          class="inputText"
+          id="authorInput"
+          placeholder="Հեղինակ (Լատինատար)"
+        />
+        <input
+          type="text"
+          class="inputText"
+          id="descriptionInput"
+          placeholder="Նկարագրություն (Լատինատար)"
+        />
+        <input
+          type="text"
+          class="inputText"
+          id="commentInput"
+          placeholder="Մեկնաբանություն (Լատինատար)"
+        />
+        <input
+          type="button"
+          class="buttonInput"
+          id="addExifBtn"
+          value="Ավելացնել EXIF"
+        />
+
+        <input
+          type="text"
+          class="inputText"
+          id="nameFile"
+          placeholder="Նկարի անվանումը"
+        />
+        <a id="downloadLink">Ներբեռնել փոփոխված նկարը</a>
+      </div>
+    </div>
+
+    <script src="piexif.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

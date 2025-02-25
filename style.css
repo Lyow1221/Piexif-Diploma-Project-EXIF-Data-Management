@@ -1,0 +1,160 @@
+#container {
+  font-family: "Arial", sans-serif;
+  background: #f7f7f7;
+  display: flex;
+  min-height: 100vh;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  place-items: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 15px;
+}
+
+.block > * {
+  margin-bottom: 20px;
+}
+
+.block h2:before {
+  content : '📸'; 
+  padding-right: 5px;
+}
+.block_second > * {
+  margin-bottom: 30px !important;
+}
+
+.block_second h2::before {
+  padding-right: 5px;
+  content: '➕';
+}
+
+.block > *:last-child {
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.4rem;
+  color: #4caf50;
+}
+
+#fileInput {
+  display: none;
+}
+
+#nameFile {
+  display: none;
+}
+
+#fileInputLabel {
+  width: 150px;
+  font-size: 16px;
+}
+
+#exifData {
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 19px;
+  color: #333;
+  text-align: left;
+}
+
+#imagePreview {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+#locLink {
+  color: #007bff;
+}
+
+.inputText,
+.buttonInput,
+#downloadLink {
+  padding: 10px 15px;
+  width: 80%;
+  max-width: 80%;
+  font-size: 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.inputText:focus {
+  border: 1px solid #000000;
+}
+
+.buttonInput {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.buttonInput:hover {
+  background-color: #45a049 !important;
+}
+
+#downloadLink {
+  display: none;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: #007bff;
+  border-radius: 5px;
+}
+
+#downloadLink:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  #container {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .block {
+    width: 100%;
+  }
+
+  #imagePreview {
+    max-width: 40%;
+    max-height: 40%;
+  } 
+
+  #exifData {
+    width: 80%;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .inputText,
+  .buttonInput,
+  #downloadLink {
+    width: 60%;
+    padding: 8px 5px;
+    font-size: 0.8rem;
+  }
+}
