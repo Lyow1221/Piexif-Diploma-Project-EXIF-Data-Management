@@ -22,7 +22,7 @@
 }
 
 .block h2:before {
-  content : '📸'; 
+  content: "📸";
   padding-right: 5px;
 }
 .block_second > * {
@@ -31,7 +31,7 @@
 
 .block_second h2::before {
   padding-right: 5px;
-  content: '➕';
+  content: "➕";
 }
 
 .block > *:last-child {
@@ -142,7 +142,7 @@ h2 {
   #imagePreview {
     max-width: 40%;
     max-height: 40%;
-  } 
+  }
 
   #exifData {
     width: 80%;

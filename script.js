@@ -1,7 +1,5 @@
 "use strict";
 
-console.log(document.querySelector("meta[property='og:description']").content);
-
 let imagePreview = document.getElementById("imagePreview"),
   fileInput = document.getElementById("fileInput"),
   addExifBtn = document.getElementById("addExifBtn"),
