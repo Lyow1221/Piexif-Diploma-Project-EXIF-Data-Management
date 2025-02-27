@@ -1,11 +1,11 @@
-#container {
+#page {
   font-family: "Arial", sans-serif;
   background: #f7f7f7;
   display: flex;
   min-height: 100vh;
 }
 
-.block {
+.section {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -17,52 +17,52 @@
   margin: 15px;
 }
 
-.block > * {
+.section > * {
   margin-bottom: 20px;
 }
 
-.block h2:before {
-  content: "📸";
-  padding-right: 5px;
-}
-.block_second > * {
-  margin-bottom: 30px !important;
+.section-padding > * {
+  margin-bottom: 30px;
 }
 
-.block_second h2::before {
+.section-padding p::before {
   padding-right: 5px;
   content: "➕";
-}
-
-.block > *:last-child {
-  margin-bottom: 0;
 }
 
 h1 {
   font-size: 2rem;
   color: #333;
   font-weight: bold;
+  text-align: center;
 }
 
-h2 {
+h2:before {
+  content: "📸";
+  padding-right: 5px;
+}
+
+h2,
+p {
   font-size: 1.4rem;
   color: #4caf50;
+  text-align: center;
 }
 
-#fileInput {
+#file-inp {
   display: none;
 }
 
-#nameFile {
+#name-file {
   display: none;
 }
 
-#fileInputLabel {
+#file-inp-label {
   width: 150px;
   font-size: 16px;
 }
 
-#exifData {
+#exif-data-info {
   width: 100%;
   background-color: #f9f9f9;
   padding: 20px;
@@ -73,7 +73,7 @@ h2 {
   text-align: left;
 }
 
-#imagePreview {
+#image-preview {
   max-width: 300px;
   max-height: 300px;
   object-fit: contain;
@@ -87,9 +87,9 @@ h2 {
   color: #007bff;
 }
 
-.inputText,
-.buttonInput,
-#downloadLink {
+.inp-text,
+.btn-green,
+#download-link {
   padding: 10px 15px;
   width: 80%;
   max-width: 80%;
@@ -98,11 +98,11 @@ h2 {
   border-radius: 5px;
 }
 
-.inputText:focus {
-  border: 1px solid #000000;
+.inp-text:focus {
+  border: 1px solid #666;
 }
 
-.buttonInput {
+.btn-green {
   background-color: #4caf50;
   color: white;
   cursor: pointer;
@@ -111,11 +111,11 @@ h2 {
   transition: background-color 0.3s ease;
 }
 
-.buttonInput:hover {
+.btn-green:hover {
   background-color: #45a049 !important;
 }
 
-#downloadLink {
+#download-link {
   display: none;
   text-align: center;
   text-decoration: none;
@@ -124,35 +124,35 @@ h2 {
   border-radius: 5px;
 }
 
-#downloadLink:hover {
+#download-link:hover {
   background-color: #0056b3;
 }
 
 @media (max-width: 768px) {
-  #container {
+  #page {
     flex-direction: column;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
   }
 
-  .block {
+  .section {
     width: 100%;
   }
 
-  #imagePreview {
+  #image-preview {
     max-width: 40%;
     max-height: 40%;
   }
 
-  #exifData {
+  #exif-data-info {
     width: 80%;
-    padding: 10px;
+    padding: 5px;
     font-size: 15px;
   }
 
-  .inputText,
-  .buttonInput,
-  #downloadLink {
+  .inp-text,
+  .btn-green,
+  #download-link {
     width: 60%;
     padding: 8px 5px;
     font-size: 0.8rem;

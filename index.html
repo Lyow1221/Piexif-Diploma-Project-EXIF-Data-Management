@@ -21,55 +21,55 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="container">
-      <div class="block">
+    <div id="page">
+      <div class="section">
         <h1>EXIF Տվյալներ</h1>
         <h2>Վերբեռնեք նկար</h2>
 
-        <label class="buttonInput" for="fileInput" id="fileInputLabel"
+        <label class="btn-green" for="file-inp" id="file-inp-label"
           >Ընտրեք նկար</label
         >
-        <input type="file" id="fileInput" accept="image/jpeg" />
+        <input type="file" id="file-inp" accept="image/jpeg" />
 
-        <img src="" id="imagePreview" />
+        <img id="image-preview" />
 
-        <div id="exifData">Այստեղ կհայտնվի տվյալները...</div>
+        <div id="exif-data-info">Այստեղ կհայտնվի տվյալները...</div>
       </div>
 
-      <div class="block block_second">
-        <h2>Ավելացնել տվյալներ</h2>
+      <div class="section section-padding">
+        <p>Ավելացնել տվյալներ</p>
         <input
           type="text"
-          class="inputText"
-          id="authorInput"
+          class="inp-text"
+          id="author-inp"
           placeholder="Հեղինակ (Լատինատար)"
         />
         <input
           type="text"
-          class="inputText"
-          id="descriptionInput"
+          class="inp-text"
+          id="description-inp"
           placeholder="Նկարագրություն (Լատինատար)"
         />
         <input
           type="text"
-          class="inputText"
-          id="commentInput"
+          class="inp-text"
+          id="comment-inp"
           placeholder="Մեկնաբանություն (Լատինատար)"
         />
         <input
           type="button"
-          class="buttonInput"
-          id="addExifBtn"
+          class="btn-green"
+          id="add-exif-data"
           value="Ավելացնել EXIF"
         />
 
         <input
           type="text"
-          class="inputText"
-          id="nameFile"
+          class="inp-text"
+          id="name-file"
           placeholder="Նկարի անվանումը"
         />
-        <a id="downloadLink">Ներբեռնել փոփոխված նկարը</a>
+        <a id="download-link">Ներբեռնել փոփոխված նկարը</a>
       </div>
     </div>
 

@@ -1,13 +1,14 @@
 "use strict";
 
-let imagePreview = document.getElementById("imagePreview"),
-  fileInput = document.getElementById("fileInput"),
-  addExifBtn = document.getElementById("addExifBtn"),
-  downloadLink = document.getElementById("downloadLink"),
-  nameFile = document.getElementById("nameFile"),
-  authorInput = document.getElementById("authorInput"),
-  descriptionInput = document.getElementById("descriptionInput"),
-  commentInput = document.getElementById("commentInput");
+let fileInput = document.getElementById("file-inp"),
+  imagePreview = document.getElementById("image-preview"),
+  exifDataInfo = document.getElementById("exif-data-info"),
+  addExifBtn = document.getElementById("add-exif-data"),
+  downloadLink = document.getElementById("download-link"),
+  nameFile = document.getElementById("name-file"),
+  authorInput = document.getElementById("author-inp"),
+  descriptionInput = document.getElementById("description-inp"),
+  commentInput = document.getElementById("comment-inp");
 
 const err = "No data available.";
 addExifBtn.disabled = true;
@@ -24,9 +25,9 @@ let exifDataObj = {
 let loadedImageData;
 let newJpegData;
 
-fileInput.addEventListener("change", function (event) {
+fileInput.addEventListener("change", function (e) {
   addExifBtn.disabled = false;
-  let file = event.target.files[0];
+  let file = e.target.files[0];
 
   if (!file) return;
 
@@ -73,11 +74,10 @@ fileInput.addEventListener("change", function (event) {
         })
         .join("<br>");
 
-      document.getElementById("exifData").innerHTML = exifDataObjText;
+      exifDataInfo.innerHTML = exifDataObjText;
     } catch (error) {
       console.error("EXIF-ի մշակման սխալ:", error);
-      document.getElementById("exifData").innerHTML =
-        "Սխալ նկարի մշակման ժամանակ";
+      exifDataInfo.innerHTML = "Սխալ նկարի մշակման ժամանակ";
     }
   };
   reader.readAsDataURL(file);
