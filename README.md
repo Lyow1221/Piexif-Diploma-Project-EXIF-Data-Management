@@ -10,4 +10,5 @@ Piexif is a web-based tool designed to view and edit EXIF (Exchangeable Image Fi
 
 ## Installation
 
-1. piexifjs: https://github.com/hMatoba/piexifjs.git
+1. Clone the repository:
+   git clone https://github.com/your-username/piexif.git
