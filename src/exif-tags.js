@@ -1,37 +1,37 @@
 export const exifTags = {
-  // "0th"
-  author: 315,          
-  description: 270,    
-  phone: 271,          
-  phoneModel: 272,     
-  dateTime: 306,     
-  software: 305,        
-  copyright: 33432,   
-  orientation: 274,     
-  xResolution: 282,    
-  yResolution: 283,  
-  resolutionUnit: 296,  
+  // "0th" (Հիմնական տվյալներ)
+  author: 315, // Հեղինակը (նկարիչը կամ ստեղծողը)
+  description: 270, // Նկարի նկարագրություն (նկարի մասին տեքստ)
+  phone: 271, // Հեռախոսի ապրանքանիշ (օրինակ՝ Canon, Nikon)
+  phoneModel: 272, // Հեռախոսի մոդել (օրինակ՝ EOS 5D)
+  dateTime: 306, // Նկարահանման ամսաթիվ և ժամ (օրինակ՝ 2023:01:15 12:00:00)
+  software: 305, // Ծրագրակազմ (օգտագործված ծրագիրը, օրինակ՝ Photoshop)
+  copyright: 33432, // Հեղինակային իրավունք (օրինակ՝ © 2023 Իմ Անունը)
+  orientation: 274, // Կողմնորոշում (նկարի դիրքը՝ հորիզոնական, ուղղահայաց)
+  xResolution: 282, // X լուծաչափ (պիքսելներ մեկ միավորի համար X առանցքում)
+  yResolution: 283, // Y լուծաչափ (պիքսելներ մեկ միավորի համար Y առանցքում)
+  resolutionUnit: 296, // Լուծաչափի միավոր (օրինակ՝ դյույմ կամ սանտիմետր)
 
-  // "Exif" 
-  userComment: 37510,    
-  exposureTime: 33434,   
-  fNumber: 33437,      
-  isoSpeedRatings: 34855, 
-  dateTimeOriginal: 36867, 
-  dateTimeDigitized: 36868,
-  shutterSpeedValue: 37377,
-  apertureValue: 37378,   
-  brightnessValue: 37379, 
-  exposureBiasValue: 37380,
-  meteringMode: 37383,    
-  flash: 37385,          
-  focalLength: 37386,     
-  exifVersion: 36864,   
+  // "Exif" (Ընդլայնված տվյալներ)
+  userComment: 37510, // Օգտագործողի մեկնաբանություն (անձնական նշումներ)
+  exposureTime: 33434, // Լուսավորման ժամանակ (օրինակ՝ 1/60 վայրկյան)
+  fNumber: 33437, // Դիաֆրագմայի թիվ (օրինակ՝ f/2.8)
+  isoSpeedRatings: 34855, // ISO զգայունություն (օրինակ՝ ISO 100)
+  dateTimeOriginal: 36867, // Օրիգինալ ամսաթիվ և ժամ (նկարի ստեղծման ժամանակը)
+  dateTimeDigitized: 36868, // Թվայնացման ամսաթիվ և ժամ (երբ նկարը թվայնացվել է)
+  shutterSpeedValue: 37377, // Փակիչի արագություն (օրինակ՝ 1/125 վայրկյան)
+  apertureValue: 37378, // Դիաֆրագմայի արժեք (APEX միավորներով)
+  brightnessValue: 37379, // Պայծառության արժեք (լույսի մակարդակը)
+  exposureBiasValue: 37380, // Լուսավորման կողմնակալություն (օրինակ՝ +0.3 EV)
+  meteringMode: 37383, // Չափման ռեժիմ (օրինակ՝ կենտրոնական, բազմակետ)
+  flash: 37385, // Ֆլեշ (օգտագործվե՞լ է, թե՝ ոչ)
+  focalLength: 37386, // Ֆոկուսային հեռավորություն (օրինակ՝ 50mm)
+  exifVersion: 36864, // EXIF տարբերակ (օրինակ՝ 0230)
 
-  // "GPS"
-  gpsN: 2,              
-  gpsE: 4,               
-  gpsAltitude: 6,        
-  gpsTimeStamp: 7,      
-  gpsDateStamp: 29,  
+  // "GPS" (Գեոտեղորոշման տվյալներ)
+  gpsN: 2, // Լայնություն (Latitude, օրինակ՝ 40.7128° N)
+  gpsE: 4, // Երկայնություն (Longitude, օրինակ՝ 74.0060° W)
+  gpsAltitude: 6, // Բարձրություն ծովի մակարդակից (օրինակ՝ 100 մ)
+  gpsTimeStamp: 7, // GPS ժամանակ (նկարահանման ժամը GPS-ով)
+  gpsDateStamp: 29, // GPS ամսաթիվ (օրինակ՝ 2023:01:15)
 };
