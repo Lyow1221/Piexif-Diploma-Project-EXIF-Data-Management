@@ -1,5 +1,7 @@
 "use strict";
 
+import { exifTags } from "./exif-tags.js";
+
 let fileInput = document.getElementById("file-inp"),
   imagePreview = document.getElementById("image-preview"),
   exifDataInfo = document.getElementById("exif-data-info"),
@@ -13,14 +15,7 @@ let fileInput = document.getElementById("file-inp"),
 const err = "No data available.";
 addExifBtn.disabled = true;
 
-let exifDataObj = {
-  "👤 Հեղինակ": null,
-  "📝 Նկարագրություն": null,
-  "💬 Մեկնաբանություն": null,
-  "📷 Տեսախցիկ": null,
-  "🕒 Նկարահանման ամսաթիվ": null,
-  "🗺️ տեղանք": null,
-};
+let exifDataObj = {};
 
 let loadedImageData;
 let newJpegData;
@@ -41,27 +36,24 @@ fileInput.addEventListener("change", function (e) {
       imagePreview.src = jpegData;
       console.log(exifData);
 
-      let description;
-      if (!exifData["0th"]["270"].startsWith("\u0000")) {
-        description = exifData["0th"]["270"];
-      } else {
-        description = err;
-      }
-      let userComment = exifData["Exif"]["37510"] || err;
-      let make = exifData["0th"]["271"] || err;
-      let model = exifData["0th"]["272"] || err;
-      let datetime = exifData["0th"]["306"] || err;
-      let author = exifData["0th"]["315"] || err;
+      let description = !exifData["0th"][exifTags.description].startsWith("\u0000")
+        ? exifData["0th"][exifTags.description]
+        : err;
+      let userComment = exifData["Exif"][exifTags.userComment] || err;
+      let phone = exifData["0th"][exifTags.phone] || err;
+      let phoneModel = exifData["0th"][exifTags.phoneModel] || err;
+      let dateTime = exifData["0th"][exifTags.dateTime] || err;
+      let author = exifData["0th"][exifTags.author] || err;
 
-      let gpsN = exifData["GPS"]["2"];
-      let gpsE = exifData["GPS"]["4"];
+      let gpsN = exifData["GPS"][exifTags.gpsN];
+      let gpsE = exifData["GPS"][exifTags.gpsE];
       let location = gpsFun(gpsN, gpsE);
 
       exifDataObj["👤 Հեղինակ"] = author;
       exifDataObj["📝 Նկարագրություն"] = description;
       exifDataObj["💬 Մեկնաբանություն"] = userComment;
-      exifDataObj["📷 Տեսախցիկ"] = `${make} ${model}`;
-      exifDataObj["🕒 Նկարահանման ամսաթիվ"] = datetime;
+      exifDataObj["📷 Տեսախցիկ"] = `${phone} ${phoneModel}`;
+      exifDataObj["🕒 Նկարահանման ամսաթիվ"] = dateTime;
       exifDataObj["🗺️ տեղանք"] = location;
 
       let exifDataObjText = Object.entries(exifDataObj)
@@ -88,12 +80,12 @@ fileInput.addEventListener("change", function (e) {
 addExifBtn.addEventListener("click", function () {
   let exifObj = piexif.load(loadedImageData);
 
-  exifObj["0th"]["315"] = authorInput.value.trim() || exifObj["0th"]["315"];
-  exifObj["0th"]["270"] =
-    descriptionInput.value.trim() || exifObj["0th"]["270"];
+  exifObj["0th"][exifTags.author] = authorInput.value.trim() || exifObj["0th"][exifTags.author];
+  exifObj["0th"][exifTags.description] =
+    descriptionInput.value.trim() || exifObj["0th"][exifTags.description];
 
-  exifObj["Exif"]["37510"] =
-    commentInput.value.trim() || exifObj["Exif"]["37510"];
+  exifObj["Exif"][exifTags.userComment] =
+    commentInput.value.trim() || exifObj["Exif"][exifTags.userComment];
 
   let exifStr = piexif.dump(exifObj);
   newJpegData = piexif.insert(exifStr, loadedImageData);
