@@ -36,15 +36,16 @@ fileInput.addEventListener("change", function (e) {
       imagePreview.src = jpegData;
       console.log(exifData);
 
-      let description = !exifData["0th"][exifTags.description].startsWith("\u0000")
+      let description = !exifData["0th"][exifTags.description].startsWith(
+        "\u0000"
+      )
         ? exifData["0th"][exifTags.description]
         : err;
-      let userComment = exifData["Exif"][exifTags.userComment] || err;
       let phone = exifData["0th"][exifTags.phone] || err;
       let phoneModel = exifData["0th"][exifTags.phoneModel] || err;
       let dateTime = exifData["0th"][exifTags.dateTime] || err;
       let author = exifData["0th"][exifTags.author] || err;
-
+      let userComment = exifData["Exif"][exifTags.userComment] || err;
       let gpsN = exifData["GPS"][exifTags.gpsN];
       let gpsE = exifData["GPS"][exifTags.gpsE];
       let location = gpsFun(gpsN, gpsE);
@@ -80,7 +81,8 @@ fileInput.addEventListener("change", function (e) {
 addExifBtn.addEventListener("click", function () {
   let exifObj = piexif.load(loadedImageData);
 
-  exifObj["0th"][exifTags.author] = authorInput.value.trim() || exifObj["0th"][exifTags.author];
+  exifObj["0th"][exifTags.author] =
+    authorInput.value.trim() || exifObj["0th"][exifTags.author];
   exifObj["0th"][exifTags.description] =
     descriptionInput.value.trim() || exifObj["0th"][exifTags.description];
 
