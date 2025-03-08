@@ -1,13 +1,17 @@
+@use "sass:color";
+
 $primary-color: #4caf50;
-$primary-hover: darken($primary-color, 10%);
+$primary-hover: #{color.adjust($primary-color, $lightness: -10%)};
 $secondary-color: #007bff;
-$secondary-hover: darken($secondary-color, 10%);
+$secondary-hover: #{color.adjust($secondary-color, $lightness: -10%)};
 
 #page {
     font-family: "Arial", sans-serif;
-    background: #f7f7f7;
     display: flex;
     min-height: 100vh;
+    padding: 15px;
+    background: #f1efef;
+    gap: 30px;
 }
 
 .section {
@@ -18,20 +22,14 @@ $secondary-hover: darken($secondary-color, 10%);
     place-items: center;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px #0000001a;
     padding: 30px;
-    margin: 15px;
-
-    > * {
-        margin-bottom: 20px;
-    }
+    gap: 20px;
 
     &-padding {
-        > * {
-            margin-bottom: 30px;
-        }
+        gap: 30px;
 
-        p::before {
+        h2::before {
             padding-right: 5px;
             content: "➕";
         }
@@ -45,7 +43,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
+h2{
     font-size: 1.4em;
     color: $primary-color;
     text-align: center;
@@ -56,19 +54,14 @@ h2 {
     }
 }
 
-p {
-    font-size: 1.4em;
-    color: $primary-color;
-    text-align: center;
-}
-
 #file-inp,
 #file-name {
     display: none;
 }
 
 #file-inp-label {
-    width: 150px;
+    width:fit-content;
+    min-width: 150px;
     font-size: 1.1em;
 }
 
@@ -79,18 +72,18 @@ p {
     border-radius: 10px;
     border: 1px solid #ddd;
     font-size: 1.2em;
+    line-height: 1.6em;
     color: #333;
     text-align: left;
 }
 
 #image-preview {
-    max-width: 300px;
     max-height: 300px;
     object-fit: contain;
     border-radius: 10px;
+    display:none;
     border: 2px solid #ddd;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.1s;
 }
 
 #locLink {
@@ -102,7 +95,6 @@ p {
 #download-link {
     padding: 10px 15px;
     width: 80%;
-    max-width: 80%;
     font-size: 1.2em;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -121,7 +113,7 @@ p {
     transition: background-color 0.2s;
 
     &:hover {
-        background-color:$primary-hover !important;
+        background-color: $primary-hover !important;
     }
 }
 

@@ -35,7 +35,8 @@ fileInput.addEventListener("change", function (e) {
 
       loadedImageData = jpegData;
       imagePreview.src = loadedImageData;
-      console.log(exifData);
+      imagePreview.style.display = "block";
+      console.dir(exifData);
 
       let description = !exifData["0th"][exifTags.description].startsWith(
         "\u0000"
@@ -56,24 +57,10 @@ fileInput.addEventListener("change", function (e) {
       exifDataObj["💬 Մեկնաբանություն"] = userComment;
       exifDataObj["📷 Տեսախցիկ"] = `${phone} ${phoneModel}`;
       exifDataObj["🕒 Նկարահանման ամսաթիվ"] = dateTime;
-      exifDataObj["🗺️ տեղանք"] = location;
+      exifDataObj["🗺️ Տեղանք"] = location;
       // 1-8  orientation
-      // exifDataObj["orientation"] = String(exifData["0th"][exifTags.orientation]);
-      console.log(exifDataObj);
-      
-
-
-      let exifDataObjText = Object.entries(exifDataObj)
-        .map(([key, value]) => {
-          value = value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-          if (key === "🗺️ տեղանք" && value !== err) {
-            return `${key}: <a id = "locLink" href="https://www.google.com/maps?q=${value}" target="_blank">${value}</a>`;
-          }
-          return `${key}: ${value}`;
-        })
-        .join("<br>");
-
-      exifDataInfo.innerHTML = exifDataObjText;
+      // exifDataObj["🧭 Կողմնորոշում"] = exifData["0th"][exifTags.orientation];
+      exifDataInfoText();
     } catch (error) {
       console.error("EXIF-ի մշակման սխալ:", error);
       exifDataInfo.innerHTML = "Սխալ նկարի մշակման ժամանակ";
@@ -117,6 +104,27 @@ let resetInputValue = (empty) => {
 
   downloadLink.style.display = "none";
   nameFile.style.display = "none";
+};
+
+let exifDataInfoText = () => {
+  exifDataInfo.textContent = "";
+  Object.entries(exifDataObj).forEach(([key, value]) => {
+    let p = document.createElement("p");
+    if (key === "🗺️ Տեղանք" && value !== err) {
+      p.textContent = `${key}: `;
+      let a = document.createElement("a");
+      a.textContent = value;
+      p.appendChild(a);
+      a.href = `https://www.google.com/maps?q=${encodeURIComponent(value)}`;
+      a.target = "_blank";
+      a.id = "locLink";
+      exifDataInfo.appendChild(p);
+      return;
+    } else {
+      p.textContent = `${key}: ${value}`;
+    }
+    exifDataInfo.appendChild(p);
+  });
 };
 
 let gpsFun = (gpsN, gpsE) => {

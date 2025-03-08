@@ -1,9 +1,11 @@
 @charset "UTF-8";
 #page {
   font-family: "Arial", sans-serif;
-  background: #f7f7f7;
   display: flex;
   min-height: 100vh;
+  padding: 15px;
+  background: #f1efef;
+  gap: 30px;
 }
 
 .section {
@@ -14,17 +16,14 @@
   place-items: center;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1019607843);
   padding: 30px;
-  margin: 15px;
+  gap: 20px;
 }
-.section > * {
-  margin-bottom: 20px;
+.section-padding {
+  gap: 30px;
 }
-.section-padding > * {
-  margin-bottom: 30px;
-}
-.section-padding p::before {
+.section-padding h2::before {
   padding-right: 5px;
   content: "➕";
 }
@@ -46,19 +45,14 @@ h2::before {
   padding-right: 5px;
 }
 
-p {
-  font-size: 1.4em;
-  color: #4caf50;
-  text-align: center;
-}
-
 #file-inp,
 #file-name {
   display: none;
 }
 
 #file-inp-label {
-  width: 150px;
+  width: fit-content;
+  min-width: 150px;
   font-size: 1.1em;
 }
 
@@ -69,19 +63,18 @@ p {
   border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 1.2em;
+  line-height: 1.6em;
   color: #333;
   text-align: left;
 }
 
 #image-preview {
-  max-width: 300px;
   max-height: 300px;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   border-radius: 10px;
+  display: none;
   border: 2px solid #ddd;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s;
 }
 
 #locLink {
@@ -93,7 +86,6 @@ p {
 #download-link {
   padding: 10px 15px;
   width: 80%;
-  max-width: 80%;
   font-size: 1.2em;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -113,7 +105,7 @@ p {
   transition: background-color 0.2s;
 }
 .btn-green:hover {
-  background-color: #3d8b40 !important;
+  background-color: rgb(60.5577689243, 139.4422310757, 63.7450199203) !important;
 }
 
 #download-link {
@@ -126,7 +118,7 @@ p {
   transition: background-color 0.2s;
 }
 #download-link:hover {
-  background-color: #0062cc;
+  background-color: rgb(0, 98.4, 204);
 }
 
 @media (max-width: 768px) {
@@ -138,4 +130,6 @@ p {
   .section {
     font-size: 12px;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */
