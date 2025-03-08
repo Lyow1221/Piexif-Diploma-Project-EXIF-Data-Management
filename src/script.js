@@ -7,7 +7,7 @@ let fileInput = document.getElementById("file-inp"),
   exifDataInfo = document.getElementById("exif-data-info"),
   addExifBtn = document.getElementById("add-exif-data"),
   downloadLink = document.getElementById("download-link"),
-  nameFile = document.getElementById("name-file"),
+  nameFile = document.getElementById("file-name"),
   authorInput = document.getElementById("author-inp"),
   descriptionInput = document.getElementById("description-inp"),
   commentInput = document.getElementById("comment-inp");
@@ -27,13 +27,14 @@ fileInput.addEventListener("change", function (e) {
   if (!file) return;
 
   let reader = new FileReader();
+
   reader.onload = function (e) {
     try {
       let jpegData = e.target.result;
       let exifData = piexif.load(jpegData);
 
       loadedImageData = jpegData;
-      imagePreview.src = jpegData;
+      imagePreview.src = loadedImageData;
       console.log(exifData);
 
       let description = !exifData["0th"][exifTags.description].startsWith(
@@ -56,6 +57,11 @@ fileInput.addEventListener("change", function (e) {
       exifDataObj["📷 Տեսախցիկ"] = `${phone} ${phoneModel}`;
       exifDataObj["🕒 Նկարահանման ամսաթիվ"] = dateTime;
       exifDataObj["🗺️ տեղանք"] = location;
+      // 1-8  orientation
+      // exifDataObj["orientation"] = String(exifData["0th"][exifTags.orientation]);
+      console.log(exifDataObj);
+      
+
 
       let exifDataObjText = Object.entries(exifDataObj)
         .map(([key, value]) => {

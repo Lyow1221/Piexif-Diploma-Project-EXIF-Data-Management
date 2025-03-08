@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #page {
   font-family: "Arial", sans-serif;
   background: #f7f7f7;
@@ -6,6 +7,7 @@
 }
 
 .section {
+  font-size: 15px;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -16,50 +18,48 @@
   padding: 30px;
   margin: 15px;
 }
-
 .section > * {
   margin-bottom: 20px;
 }
-
 .section-padding > * {
   margin-bottom: 30px;
 }
-
 .section-padding p::before {
   padding-right: 5px;
   content: "➕";
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2em;
   color: #333;
   font-weight: bold;
   text-align: center;
 }
 
-h2:before {
+h2 {
+  font-size: 1.4em;
+  color: #4caf50;
+  text-align: center;
+}
+h2::before {
   content: "📸";
   padding-right: 5px;
 }
 
-h2,
 p {
-  font-size: 1.4rem;
+  font-size: 1.4em;
   color: #4caf50;
   text-align: center;
 }
 
-#file-inp {
-  display: none;
-}
-
-#name-file {
+#file-inp,
+#file-name {
   display: none;
 }
 
 #file-inp-label {
   width: 150px;
-  font-size: 16px;
+  font-size: 1.1em;
 }
 
 #exif-data-info {
@@ -68,7 +68,7 @@ p {
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  font-size: 19px;
+  font-size: 1.2em;
   color: #333;
   text-align: left;
 }
@@ -76,11 +76,12 @@ p {
 #image-preview {
   max-width: 300px;
   max-height: 300px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 10px;
   border: 2px solid #ddd;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s;
 }
 
 #locLink {
@@ -93,12 +94,13 @@ p {
   padding: 10px 15px;
   width: 80%;
   max-width: 80%;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-
-.inp-text:focus {
+.inp-text:not(.btn-green):focus,
+.btn-green:not(.btn-green):focus,
+#download-link:not(.btn-green):focus {
   border: 1px solid #666;
 }
 
@@ -108,11 +110,10 @@ p {
   cursor: pointer;
   border: none;
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s;
 }
-
 .btn-green:hover {
-  background-color: #45a049 !important;
+  background-color: #3d8b40 !important;
 }
 
 #download-link {
@@ -122,10 +123,10 @@ p {
   color: white;
   background-color: #007bff;
   border-radius: 5px;
+  transition: background-color 0.2s;
 }
-
 #download-link:hover {
-  background-color: #0056b3;
+  background-color: #0062cc;
 }
 
 @media (max-width: 768px) {
@@ -134,27 +135,7 @@ p {
     align-items: center;
     padding: 10px;
   }
-
   .section {
-    width: 100%;
+    font-size: 12px;
   }
-
-  #image-preview {
-    max-width: 40%;
-    max-height: 40%;
-  }
-
-  #exif-data-info {
-    width: 80%;
-    padding: 5px;
-    font-size: 15px;
-  }
-
-  .inp-text,
-  .btn-green,
-  #download-link {
-    width: 60%;
-    padding: 8px 5px;
-    font-size: 0.8rem;
-  }
-}
+}/*# sourceMappingURL=style.css.map */
