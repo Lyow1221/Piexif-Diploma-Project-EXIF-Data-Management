@@ -38,11 +38,7 @@ fileInput.addEventListener("change", function (e) {
       imagePreview.style.display = "block";
       console.dir(exifData);
 
-      let description = !exifData["0th"][exifTags.description].startsWith(
-        "\u0000"
-      )
-        ? exifData["0th"][exifTags.description]
-        : err;
+      let description = clearText(exifData["0th"][exifTags.description]);
       let phone = exifData["0th"][exifTags.phone] || err;
       let phoneModel = exifData["0th"][exifTags.phoneModel] || err;
       let dateTime = exifData["0th"][exifTags.dateTime] || err;
@@ -50,7 +46,7 @@ fileInput.addEventListener("change", function (e) {
       let userComment = exifData["Exif"][exifTags.userComment] || err;
       let gpsN = exifData["GPS"][exifTags.gpsN];
       let gpsE = exifData["GPS"][exifTags.gpsE];
-      let location = gpsFun(gpsN, gpsE);
+      let location = exifTags.location(gpsN, gpsE);
 
       exifDataObj["👤 Հեղինակ"] = author;
       exifDataObj["📝 Նկարագրություն"] = description;
@@ -58,8 +54,10 @@ fileInput.addEventListener("change", function (e) {
       exifDataObj["📷 Տեսախցիկ"] = `${phone} ${phoneModel}`;
       exifDataObj["🕒 Նկարահանման ամսաթիվ"] = dateTime;
       exifDataObj["🗺️ Տեղանք"] = location;
+
       // 1-8  orientation
       // exifDataObj["🧭 Կողմնորոշում"] = exifData["0th"][exifTags.orientation];
+
       exifDataInfoText();
     } catch (error) {
       console.error("EXIF-ի մշակման սխալ:", error);
@@ -106,6 +104,14 @@ let resetInputValue = (empty) => {
   nameFile.style.display = "none";
 };
 
+let clearText = (exifData) => {
+  if (exifData.startsWith("\u0000")) {
+    return err;
+  } else {
+    return exifData;
+  }
+};
+
 let exifDataInfoText = () => {
   exifDataInfo.textContent = "";
   Object.entries(exifDataObj).forEach(([key, value]) => {
@@ -125,21 +131,4 @@ let exifDataInfoText = () => {
     }
     exifDataInfo.appendChild(p);
   });
-};
-
-let gpsFun = (gpsN, gpsE) => {
-  if (!gpsN && !gpsE) return err;
-  let latD = gpsN[0][0] / gpsN[0][1] || 0;
-  let latM = gpsN[1][0] / gpsN[1][1] || 0;
-  let latS = gpsN[2][0] / gpsN[2][1] || 0;
-
-  let lonD = gpsE[0][0] / gpsE[0][1] || 0;
-  let lonM = gpsE[1][0] / gpsE[1][1] || 0;
-  let lonS = gpsE[2][0] / gpsE[2][1] || 0;
-
-  let lat = latD + latM / 60 + latS / 3600;
-  let lon = lonD + lonM / 60 + lonS / 3600;
-  if (!isNaN(lat) && !isNaN(lon)) {
-    return `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-  }
 };

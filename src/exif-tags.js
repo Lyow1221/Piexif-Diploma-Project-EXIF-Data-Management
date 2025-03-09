@@ -34,4 +34,20 @@ export const exifTags = {
   gpsAltitude: 6, // Բարձրություն ծովի մակարդակից (օրինակ՝ 100 մ)
   gpsTimeStamp: 7, // GPS ժամանակ (նկարահանման ժամը GPS-ով)
   gpsDateStamp: 29, // GPS ամսաթիվ (օրինակ՝ 2023:01:15)
+  location: function (gpsN, gpsE) {
+    if (!gpsN && !gpsE) return err;
+    let latD = gpsN[0][0] / gpsN[0][1] || 0;
+    let latM = gpsN[1][0] / gpsN[1][1] || 0;
+    let latS = gpsN[2][0] / gpsN[2][1] || 0;
+
+    let lonD = gpsE[0][0] / gpsE[0][1] || 0;
+    let lonM = gpsE[1][0] / gpsE[1][1] || 0;
+    let lonS = gpsE[2][0] / gpsE[2][1] || 0;
+
+    let lat = latD + latM / 60 + latS / 3600;
+    let lon = lonD + lonM / 60 + lonS / 3600;
+    if (!isNaN(lat) && !isNaN(lon)) {
+      return `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+    }
+  },
 };
