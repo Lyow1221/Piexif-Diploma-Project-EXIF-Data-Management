@@ -34,7 +34,7 @@ export const exifTags = {
   gpsAltitude: 6, // Բարձրություն ծովի մակարդակից (օրինակ՝ 100 մ)
   gpsTimeStamp: 7, // GPS ժամանակ (նկարահանման ժամը GPS-ով)
   gpsDateStamp: 29, // GPS ամսաթիվ (օրինակ՝ 2023:01:15)
-  location: function (gpsN, gpsE) {
+  location: function (gpsN, gpsE, err) {
     if (!gpsN && !gpsE) return err;
     let latD = gpsN[0][0] / gpsN[0][1] || 0;
     let latM = gpsN[1][0] / gpsN[1][1] || 0;

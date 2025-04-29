@@ -7,7 +7,3 @@ Piexif is a web-based tool designed to view and edit EXIF (Exchangeable Image Fi
 - **View EXIF Data:** View metadata such as camera model, exposure settings, and GPS coordinates.
 - **Edit EXIF Data:** Modify existing EXIF data for images.
 - **User-Friendly Interface:** Easy-to-use interface for both beginners and advanced users.
-
-## Installation
-
-- piexif file: https://github.com/hMatoba/piexifjs.git

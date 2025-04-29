@@ -26,7 +26,7 @@ fileInput.addEventListener("change", function (e) {
 
   if (!file) return;
 
-  let reader = new FileReader();
+  const reader = new FileReader();
 
   reader.onload = function (e) {
     try {
@@ -39,14 +39,16 @@ fileInput.addEventListener("change", function (e) {
       console.dir(exifData);
 
       let description = clearText(exifData["0th"][exifTags.description]);
-      let phone = exifData["0th"][exifTags.phone] || err;
-      let phoneModel = exifData["0th"][exifTags.phoneModel] || err;
-      let dateTime = exifData["0th"][exifTags.dateTime] || err;
-      let author = exifData["0th"][exifTags.author] || err;
-      let userComment = exifData["Exif"][exifTags.userComment] || err;
+      let phone = clearText(exifData["0th"][exifTags.phone] || err);
+      let phoneModel = clearText(exifData["0th"][exifTags.phoneModel] || err);
+      let dateTime = clearText(exifData["0th"][exifTags.dateTime] || err);
+      let author = clearText(exifData["0th"][exifTags.author] || err);
+      let userComment = clearText(
+        exifData["Exif"][exifTags.userComment] || err
+      );
       let gpsN = exifData["GPS"][exifTags.gpsN];
       let gpsE = exifData["GPS"][exifTags.gpsE];
-      let location = exifTags.location(gpsN, gpsE);
+      let location = exifTags.location(gpsN, gpsE, err);
 
       exifDataObj["👤 Հեղինակ"] = author;
       exifDataObj["📝 Նկարագրություն"] = description;
@@ -105,11 +107,7 @@ let resetInputValue = (empty) => {
 };
 
 let clearText = (exifData) => {
-  if (exifData.startsWith("\u0000")) {
-    return err;
-  } else {
-    return exifData;
-  }
+  return exifData.replace(/\u0000/g, "").trim() || err;
 };
 
 let exifDataInfoText = () => {
