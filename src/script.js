@@ -11,7 +11,7 @@ const fileInput = document.getElementById("file-inp"),
   descriptionInput = document.getElementById("description-inp"),
   commentInput = document.getElementById("comment-inp");
 
-const err = "Տվյալներ առկա րե.";
+const ERR = "Տվյալ առկա չէ.";
 addExifBtn.disabled = true;
 
 let exifDataObj = {};
@@ -65,16 +65,16 @@ fileInput.addEventListener("change", async (e) => {
       console.dir(exifData);
 
       const description = clearText(exifData["0th"][exifTags.description]);
-      const phone = clearText(exifData["0th"][exifTags.phone] || err);
-      const phoneModel = clearText(exifData["0th"][exifTags.phoneModel] || err);
-      const dateTime = clearText(exifData["0th"][exifTags.dateTime] || err);
-      const author = clearText(exifData["0th"][exifTags.author] || err);
+      const phone = clearText(exifData["0th"][exifTags.phone] || ERR);
+      const phoneModel = clearText(exifData["0th"][exifTags.phoneModel] || ERR);
+      const dateTime = clearText(exifData["0th"][exifTags.dateTime] || ERR);
+      const author = clearText(exifData["0th"][exifTags.author] || ERR);
       const userComment = clearText(
-        exifData["Exif"][exifTags.userComment] || err
+        exifData["Exif"][exifTags.userComment] || ERR
       );
       const gpsN = exifData["GPS"][exifTags.gpsN];
       const gpsE = exifData["GPS"][exifTags.gpsE];
-      const location = exifTags.location(gpsN, gpsE, err);
+      const location = exifTags.location(gpsN, gpsE, ERR);
 
       exifDataObj = {
         "👤 Հեղինակ": author,
@@ -83,7 +83,7 @@ fileInput.addEventListener("change", async (e) => {
         "📷 Տեսախցիկ": `${phone} ${phoneModel}`,
         "🕒 Նկարահանման ամսաթիվ": dateTime,
         "🗺️ Տեղանք": location,
-        // "🧭 Կողմնորոշում": exifData["0th"][exifTags.orientation] || err, // 1-8 orientation
+        // "🧭 Կողմնորոշում": exifData["0th"][exifTags.orientation] || ERR, // 1-8 orientation
       };
 
       exifDataInfoText();
@@ -131,13 +131,13 @@ const resetInputValue = (empty) => {
 };
 
 const clearText = (exifData) =>
-  !exifData ? err : exifData.replace(/\u0000/g, "").trim() || err;
+  !exifData ? ERR : exifData.replace(/\u0000/g, "").trim() || ERR;
 
 const exifDataInfoText = () => {
   exifDataInfo.innerHTML = ""; // Clear previous entries to prevent duplicates
   Object.entries(exifDataObj).forEach(([key, value]) => {
     const p = document.createElement("p");
-    if (key === "🗺️ Տեղանք" && value !== err) {
+    if (key === "🗺️ Տեղանք" && value !== ERR) {
       p.textContent = `${key}: `;
       const a = document.createElement("a");
       a.textContent = value;
