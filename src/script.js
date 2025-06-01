@@ -17,8 +17,77 @@ addExifBtn.disabled = true;
 let exifDataObj = {};
 let loadedImageData = null;
 let newJpegData = null;
+let translations = {};
+const defaultLang = "hy";
 
-// XSS-ը կանխելու համար. HTML-ում հատուկ սիմվոլները փոխարինելու ֆունկցիա
+// Հասարակ EXIF արժեքները պահելու օբյեկտը
+let currentExifValues = {
+  author: ERR,
+  description: ERR,
+  userComment: ERR,
+  phone: ERR,
+  phoneModel: ERR,
+  dateTime: ERR,
+  location: ERR,
+};
+
+// Լեզվի բեռնում, վերադարձնում է Promise
+function loadLanguage(lang) {
+  return fetch(`lang/${lang}.json`)
+    .then((res) => res.json())
+    .then((data) => {
+      translations = data;
+      applyTranslations(data);
+      localStorage.setItem("lang", lang);
+      document.getElementById("languageSwitcher").value = lang;
+
+      // EXIF տվյալները ցույց տուր միայն, եթե նկարը վերբեռնված է
+      if (loadedImageData) {
+        updateExifDataObj(
+          translations,
+          currentExifValues.author,
+          currentExifValues.description,
+          currentExifValues.userComment,
+          currentExifValues.phone,
+          currentExifValues.phoneModel,
+          currentExifValues.dateTime,
+          currentExifValues.location
+        );
+      } else {
+        exifDataInfo.innerHTML = exifDataInfo.textContent =
+          translations.exifDataPlaceholder || "Այստեղ կհայտնվի տվյալները...";
+    })
+    .catch((err) => {
+      console.error("Սխալ՝ լեզվի բեռնումից", err);
+    });
+}
+
+// Թարգմանության կիրառման ֆունկցիա
+function applyTranslations(langData) {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (langData[key]) el.textContent = langData[key];
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (langData[key]) el.placeholder = langData[key];
+  });
+
+  document.querySelectorAll("[data-i18n-value]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-value");
+    if (langData[key]) el.value = langData[key];
+  });
+}
+
+// Լեզվով ընտրիչ
+document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+  loadLanguage(e.target.value);
+});
+
+// Սկզբում բեռնել լեզուն
+loadLanguage(defaultLang);
+
 const escapeHTML = (str) =>
   str.replace(
     /[&<>"'`=\/]/g,
@@ -40,8 +109,7 @@ fileInput.addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
-  // Ստուգում ֆայլի տեսակը և չափը
-  const maxSize = 5 * 1024 * 1024; // 5MB առավելաջն չափ
+  const maxSize = 5 * 1024 * 1024;
   if (!file.type.match(/^image\/jpeg$/)) {
     alert("Խնդրում ենք ընտրել միայն JPEG ֆորմատի նկար:");
     fileInput.value = "";
@@ -62,7 +130,6 @@ fileInput.addEventListener("change", async (e) => {
       loadedImageData = jpegData;
       imagePreview.src = loadedImageData;
       imagePreview.style.display = "block";
-      console.dir(exifData);
 
       const description = clearText(exifData["0th"][exifTags.description]);
       const phone = clearText(exifData["0th"][exifTags.phone] || ERR);
@@ -76,17 +143,27 @@ fileInput.addEventListener("change", async (e) => {
       const gpsE = exifData["GPS"][exifTags.gpsE];
       const location = exifTags.location(gpsN, gpsE, ERR);
 
-      exifDataObj = {
-        "👤 Հեղինակ": author,
-        "📝 Նկարագրություն": description,
-        "💬 Մեկնաբանություն": userComment,
-        "📷 Տեսախցիկ": `${phone} ${phoneModel}`,
-        "🕒 Նկարահանման ամսաթիվ": dateTime,
-        "🗺️ Տեղանք": location,
-        // "🧭 Կողմնորոշում": exifData["0th"][exifTags.orientation] || ERR, // 1-8 orientation
+      currentExifValues = {
+        author,
+        description,
+        userComment,
+        phone,
+        phoneModel,
+        dateTime,
+        location,
       };
 
-      exifDataInfoText();
+      // Նկար վերբեռնելուց հետո ցույց տուր EXIF տվյալները
+      updateExifDataObj(
+        translations,
+        author,
+        description,
+        userComment,
+        phone,
+        phoneModel,
+        dateTime,
+        location
+      );
     } catch (error) {
       console.error("Սխալ՝ EXIF տվյալների ընթերցման ժամանակ: " + error);
       exifDataInfo.textContent = "Սխալ նկարի մշակման ժամանակ";
@@ -95,7 +172,29 @@ fileInput.addEventListener("change", async (e) => {
   reader.readAsDataURL(file);
 });
 
-// ADD EXIF DATA
+// Թարմացրու EXIF տվյալները՝ ըստ լեզվի
+function updateExifDataObj(
+  langData,
+  author,
+  description,
+  userComment,
+  phone,
+  phoneModel,
+  dateTime,
+  location
+) {
+  exifDataObj = {
+    [langData.authorLabel]: author,
+    [langData.descriptionLabel]: description,
+    [langData.commentLabel]: userComment,
+    [langData.cameraLabel]: `${phone} ${phoneModel}`,
+    [langData.dateLabel]: dateTime,
+    [langData.locationLabel]: location,
+  };
+
+  exifDataInfoText();
+}
+
 addExifBtn.addEventListener("click", () => {
   const exifObj = piexif.load(loadedImageData);
 
@@ -137,7 +236,7 @@ const exifDataInfoText = () => {
   exifDataInfo.innerHTML = ""; // Clear previous entries to prevent duplicates
   Object.entries(exifDataObj).forEach(([key, value]) => {
     const p = document.createElement("p");
-    if (key === "🗺️ Տեղանք" && value !== ERR) {
+    if (key === translations.locationLabel && value !== ERR) {
       p.textContent = `${key}: `;
       const a = document.createElement("a");
       a.textContent = value;

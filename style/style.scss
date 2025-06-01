@@ -5,14 +5,7 @@ $primary-hover: color.adjust($primary-color, $lightness: -10%);
 $secondary-color: #007bff;
 $secondary-hover: color.adjust($secondary-color, $lightness: -10%);
 
-#page {
-    font-family: "Arial", sans-serif;
-    display: flex;
-    min-height: 100vh;
-    padding: 1rem;
-    background: #f1efef;
-    gap: 2rem;
-}
+
 
 .section {
     font-size: 1rem;
@@ -30,7 +23,6 @@ $secondary-hover: color.adjust($secondary-color, $lightness: -10%);
         gap: 2rem;
 
         h2::before {
-            content: "➕";
             padding-right: 0.3125rem;
         }
     }

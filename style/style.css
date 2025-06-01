@@ -20,12 +20,32 @@
   padding: 30px;
   gap: 20px;
 }
-.section-padding {
-  gap: 30px;
-}
+
 .section-padding h2::before {
-  padding-right: 5px;
-  content: "➕";
+  content: "";
+}
+
+#languageSwitcher {
+  appearance: none; /* Թաքցնում է բրաուզերի լռելայն սլաքը */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-self: start;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#languageSwitcher:hover {
+  background-color: #43a047; /* 10%-ով մուգ տարբերակ */
+}
+
+#languageSwitcher option {
+  color: rgb(255, 255, 255);
 }
 
 h1 {
@@ -81,11 +101,26 @@ h2::before {
   color: #007bff;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+  min-width: 350px;  
+}
+
+label {
+  font-size: 1em;
+  color: #333;
+  font-weight: 500;
+  text-align: left;
+}
+
 .inp-text,
 .btn-green,
 #download-link {
   padding: 10px 15px;
   width: 80%;
+  
   max-width: 300px;
   font-size: 1.2em;
   border: 1px solid #ddd;
@@ -106,7 +141,11 @@ h2::before {
   transition: background-color 0.2s;
 }
 .btn-green:hover {
-  background-color: rgb(60.5577689243, 139.4422310757, 63.7450199203) !important;
+  background-color: rgb(
+    60.5577689243,
+    139.4422310757,
+    63.7450199203
+  ) !important;
 }
 
 #download-link {
@@ -132,5 +171,3 @@ h2::before {
     font-size: 12px;
   }
 }
-
-/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,19 @@
+{
+  "title": "EXIF Data",
+  "description": "Information about EXIF files, how to check, modify and add new data to your photos.",
+  "uploadImage": "Upload an Image",
+  "chooseImage": "Choose Image",
+  "exifDataPlaceholder": "Data will appear here...",
+  "editExifTitle": "Edit or Add EXIF Data to the Image",
+  "inputPlaceholder": "Write in English characters",
+  "saveExif": "Save Data",
+  "fileNamePlaceholder": "Image file name",
+  "downloadModified": "Download modified image",
+  "authorLabel": "👤 Author",
+  "descriptionLabel": "📝 Description",
+  "commentLabel": "💬 Comment",
+  "cameraLabel": "📷 Camera",
+  "dateLabel": "🕒 Date Taken",
+  "locationLabel": "🗺️ Location"
+
+}
