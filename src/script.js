@@ -45,7 +45,7 @@ function loadLanguage(lang) {
       if (loadedImageData) {
         updateExifDataObj(
           translations,
-          currentExifValues.author,S
+          currentExifValues.author,
           currentExifValues.description,
           currentExifValues.userComment,
           currentExifValues.phone,
