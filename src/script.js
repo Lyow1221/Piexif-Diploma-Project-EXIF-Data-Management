@@ -45,7 +45,7 @@ function loadLanguage(lang) {
       if (loadedImageData) {
         updateExifDataObj(
           translations,
-          currentExifValues.author,
+          currentExifValues.author,S
           currentExifValues.description,
           currentExifValues.userComment,
           currentExifValues.phone,
@@ -56,6 +56,7 @@ function loadLanguage(lang) {
       } else {
         exifDataInfo.innerHTML = exifDataInfo.textContent =
           translations.exifDataPlaceholder || "Այստեղ կհայտնվի տվյալները...";
+      }
     })
     .catch((err) => {
       console.error("Սխալ՝ լեզվի բեռնումից", err);
