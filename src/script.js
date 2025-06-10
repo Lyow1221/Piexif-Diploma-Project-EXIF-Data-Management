@@ -11,7 +11,6 @@ const fileInput = document.getElementById("file-inp"),
   descriptionInput = document.getElementById("description-inp"),
   commentInput = document.getElementById("comment-inp");
 
-const ERR = "Տվյալ առկա չէ.";
 addExifBtn.disabled = true;
 
 let exifDataObj = {};
@@ -20,18 +19,8 @@ let newJpegData = null;
 let translations = {};
 const defaultLang = "hy";
 
-// Հասարակ EXIF արժեքները պահելու օբյեկտը
-let currentExifValues = {
-  author: ERR,
-  description: ERR,
-  userComment: ERR,
-  phone: ERR,
-  phoneModel: ERR,
-  dateTime: ERR,
-  location: ERR,
-};
+let currentExifValues = {}; // Սկզբում դատարկ է, կլցվի լեզվի բեռնումից հետո
 
-// Լեզվի բեռնում, վերադարձնում է Promise
 function loadLanguage(lang) {
   return fetch(`lang/${lang}.json`)
     .then((res) => res.json())
@@ -41,7 +30,17 @@ function loadLanguage(lang) {
       localStorage.setItem("lang", lang);
       document.getElementById("languageSwitcher").value = lang;
 
-      // EXIF տվյալները ցույց տուր միայն, եթե նկարը վերբեռնված է
+      // Թարմացնենք դատարկ արժեքները նոր թարգմանությամբ
+      currentExifValues = {
+        author: translations.errMissing,
+        description: translations.errMissing,
+        userComment: translations.errMissing,
+        phone: translations.errMissing,
+        phoneModel: translations.errMissing,
+        dateTime: translations.errMissing,
+        location: translations.errMissing,
+      };
+
       if (loadedImageData) {
         updateExifDataObj(
           translations,
@@ -59,11 +58,10 @@ function loadLanguage(lang) {
       }
     })
     .catch((err) => {
-      console.error("Սխալ՝ լեզվի բեռնումից", err);
+      console.error("Սխալ՝ լեզվի բեռնումից:", "Տվյալը բացակայում է");
     });
 }
 
-// Թարգմանության կիրառման ֆունկցիա
 function applyTranslations(langData) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -81,12 +79,10 @@ function applyTranslations(langData) {
   });
 }
 
-// Լեզվով ընտրիչ
 document.getElementById("languageSwitcher").addEventListener("change", (e) => {
   loadLanguage(e.target.value);
 });
 
-// Սկզբում բեռնել լեզուն
 loadLanguage(defaultLang);
 
 const escapeHTML = (str) =>
@@ -133,16 +129,24 @@ fileInput.addEventListener("change", async (e) => {
       imagePreview.style.display = "block";
 
       const description = clearText(exifData["0th"][exifTags.description]);
-      const phone = clearText(exifData["0th"][exifTags.phone] || ERR);
-      const phoneModel = clearText(exifData["0th"][exifTags.phoneModel] || ERR);
-      const dateTime = clearText(exifData["0th"][exifTags.dateTime] || ERR);
-      const author = clearText(exifData["0th"][exifTags.author] || ERR);
+      const phone = clearText(
+        exifData["0th"][exifTags.phone] || translations.errMissing
+      );
+      const phoneModel = clearText(
+        exifData["0th"][exifTags.phoneModel] || translations.errMissing
+      );
+      const dateTime = clearText(
+        exifData["0th"][exifTags.dateTime] || translations.errMissing
+      );
+      const author = clearText(
+        exifData["0th"][exifTags.author] || translations.errMissing
+      );
       const userComment = clearText(
-        exifData["Exif"][exifTags.userComment] || ERR
+        exifData["Exif"][exifTags.userComment] || translations.errMissing
       );
       const gpsN = exifData["GPS"][exifTags.gpsN];
       const gpsE = exifData["GPS"][exifTags.gpsE];
-      const location = exifTags.location(gpsN, gpsE, ERR);
+      const location = exifTags.location(gpsN, gpsE, translations.errMissing);
 
       currentExifValues = {
         author,
@@ -154,7 +158,6 @@ fileInput.addEventListener("change", async (e) => {
         location,
       };
 
-      // Նկար վերբեռնելուց հետո ցույց տուր EXIF տվյալները
       updateExifDataObj(
         translations,
         author,
@@ -173,7 +176,6 @@ fileInput.addEventListener("change", async (e) => {
   reader.readAsDataURL(file);
 });
 
-// Թարմացրու EXIF տվյալները՝ ըստ լեզվի
 function updateExifDataObj(
   langData,
   author,
@@ -231,13 +233,18 @@ const resetInputValue = (empty) => {
 };
 
 const clearText = (exifData) =>
-  !exifData ? ERR : exifData.replace(/\u0000/g, "").trim() || ERR;
+  !exifData
+    ? translations.errMissing
+    : exifData.replace(/\u0000/g, "").trim() || translations.errMissing;
 
 const exifDataInfoText = () => {
-  exifDataInfo.innerHTML = ""; // Clear previous entries to prevent duplicates
+  exifDataInfo.innerHTML = "";
   Object.entries(exifDataObj).forEach(([key, value]) => {
     const p = document.createElement("p");
-    if (key === translations.locationLabel && value !== ERR) {
+    if (
+      key === translations.locationLabel &&
+      value !== translations.errMissing
+    ) {
       p.textContent = `${key}: `;
       const a = document.createElement("a");
       a.textContent = value;

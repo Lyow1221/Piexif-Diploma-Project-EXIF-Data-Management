@@ -1,5 +1,6 @@
 {
   "title": "EXIF Data",
+  "errMissing": "Data not available",
   "description": "Information about EXIF files, how to check, modify and add new data to your photos.",
   "uploadImage": "Upload an Image",
   "chooseImage": "Choose Image",
@@ -15,5 +16,4 @@
   "cameraLabel": "📷 Camera",
   "dateLabel": "🕒 Date Taken",
   "locationLabel": "🗺️ Location"
-
 }
