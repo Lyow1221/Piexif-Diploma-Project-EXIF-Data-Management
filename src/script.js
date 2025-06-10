@@ -19,7 +19,15 @@ let newJpegData = null;
 let translations = {};
 const defaultLang = "hy";
 
-let currentExifValues = {}; // Սկզբում դատարկ է, կլցվի լեզվի բեռնումից հետո
+let currentExifValues = {
+  author: "",
+  description: "",
+  userComment: "",
+  phone: "",
+  phoneModel: "",
+  dateTime: "",
+  location: "",
+};
 
 function loadLanguage(lang) {
   return fetch(`lang/${lang}.json`)
@@ -30,15 +38,14 @@ function loadLanguage(lang) {
       localStorage.setItem("lang", lang);
       document.getElementById("languageSwitcher").value = lang;
 
-      // Թարմացնենք դատարկ արժեքները նոր թարգմանությամբ
       currentExifValues = {
-        author: translations.errMissing,
-        description: translations.errMissing,
-        userComment: translations.errMissing,
-        phone: translations.errMissing,
-        phoneModel: translations.errMissing,
-        dateTime: translations.errMissing,
-        location: translations.errMissing,
+        author: currentExifValues.author || translations.errMissing,
+        description: currentExifValues.description || translations.errMissing,
+        userComment: currentExifValues.userComment || translations.errMissing,
+        phone: currentExifValues.phone || translations.errMissing,
+        phoneModel: currentExifValues.phoneModel || translations.errMissing,
+        dateTime: currentExifValues.dateTime || translations.errMissing,
+        location: currentExifValues.location || translations.errMissing,
       };
 
       if (loadedImageData) {
@@ -52,6 +59,8 @@ function loadLanguage(lang) {
           currentExifValues.dateTime,
           currentExifValues.location
         );
+        imagePreview.src = loadedImageData; // Թարմացնում ենք նկարը
+        imagePreview.style.display = "block";
       } else {
         exifDataInfo.innerHTML = exifDataInfo.textContent =
           translations.exifDataPlaceholder || "Այստեղ կհայտնվի տվյալները...";
